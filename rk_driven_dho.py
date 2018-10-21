@@ -27,7 +27,7 @@ n = int(t_max / dt)
 
 # Initial values
 
-params = [1, 0.2, 1, 0.8] # A, b, omega_0, omega_D
+params = [0.9, 0.1, 1.2, 1.1] # A, b, omega_0, omega_D
 y_0 = [0, 1]
 
 res = solve_ivp(lambda t, y : DampedDrivenOscillator(t, y, params), [t_0, t_max], y_0, method="RK45", t_eval=np.linspace(t_0, t_max, n))
@@ -44,14 +44,15 @@ textstr = '\n'.join((
 props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
 
 plt.figure(1, figsize=(9, 6))
-plt.plot(t, x, label=r"$x , v_0 = %d$" % y_0[0])
+plt.plot(t, x, label=r"$x , x_0 = %d$" % y_0[0])
 plt.plot(t, v, label=r"$v , v_0 = %d$" % y_0[1])
 plt.xlabel(r"Time $t$")
-plt.ylabel(r"Amplitude $x(t)$")
+plt.ylabel(r"Amplitude")
 plt.legend()
 ax = plt.gca()
 ax.text(0.05, 0.25, textstr, transform=ax.transAxes, fontsize=14,
         verticalalignment='top', bbox=props)
+plt.savefig("rk_ddho.png", dpi=300)
 
 
 plt.figure(2, figsize=(9, 6))
@@ -59,3 +60,4 @@ plt.plot(x, v, 'k')
 plt.axis('equal')
 plt.xlabel(r"$x$")
 plt.ylabel(r"$v$")
+plt.savefig("rk_ddho_phase.png", dpi=300)

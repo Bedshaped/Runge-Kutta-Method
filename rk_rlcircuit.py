@@ -28,9 +28,9 @@ n = int(100)
 
 # Initial values
 
-V = 10 # Volts
+V = 12 # Volts
 R = 50 # Ohms
-L = 100 # Henries
+L = 120 # Henries
    
 params = np.array([V, R, L])
 
@@ -49,12 +49,24 @@ t = res.t
 
 x = Analytical(t, params)
 
+textstr = '\n'.join((
+    r'$V=%.2f$ Volts' % (params[0], ),
+    r'$R=%.2f$ Ohms' % (params[1], ),
+    r'$L=%.2f$ Henries' % (params[2], )))
+props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+
 plt.figure(1, figsize=(9, 6))
-plt.plot(t, y, label=r"RK Solution")
+plt.plot(t, y, label=r"RK45 Solution")
 plt.plot(t, x, 'k.', label=r"Exact Solution")
 plt.xlabel("Time")
+plt.ylabel("Current")
 plt.legend()
+ax = plt.gca()
+ax.text(0.10, 0.25, textstr, transform=ax.transAxes, fontsize=14,
+        verticalalignment='top', bbox=props)
+plt.savefig("rk_rlcircuit.png", dpi=300)
 
 plt.figure(2, figsize=(9, 6))
 plt.plot(t, abs(x - y), label=r"Deviation")
 plt.legend()
+plt.savefig("rk_rlcircuitdev.png", dpi=300)

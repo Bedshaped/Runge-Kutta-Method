@@ -26,7 +26,7 @@ n = 100
 
 # Initial values
 
-params = [1, 1] # A, b, omega_0
+params = [0.9, 1.2] # A, omega_0
 y_0 = [0, 1]
 
 amplitudes = []
@@ -55,8 +55,9 @@ props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
 
 
 plt.ylabel(r"Amplitude")
-plt.xlabel(r"$\omega_D$")
+plt.xlabel(r"Driving frequency $\omega_D$")
 plt.legend()
 ax = plt.gca()
 ax.text(0.05, 0.95, textstr, transform=ax.transAxes, fontsize=14,
         verticalalignment='top', bbox=props)
+plt.savefig("rk_ampvfreq.png", dpi=300)

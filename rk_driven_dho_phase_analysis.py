@@ -42,21 +42,21 @@ for omega_d in (params[2], 0.75*params[2], 0.25*params[2]):
     x = res.y[0]
     t = res.t
         
-    driven = DrivenElement(t, params[1], omega_d)
+    #driven = DrivenElement(t, params[1], omega_d)
     
-    nsamples = x.size
+    #nsamples = x.size
     
-    x -= x.mean(); x /= x.std()
-    driven -= driven.mean(); driven /= driven.std()
+    #x -= x.mean(); x /= x.std()
+    #driven -= driven.mean(); driven /= driven.std()
     
-    corr = correlate(x, driven)
+    #corr = correlate(x, driven)
     
-    dt = np.arange(1-nsamples, nsamples)
-    recovered_time_shift = dt[corr.argmax()]
+    #dt = np.arange(1-nsamples, nsamples)
+    #recovered_time_shift = dt[corr.argmax()]
     
     
-    #plt.figure(figsize=(9, 6))
-    #plt.plot(t, x, label=r"$x , \omega_D = %.2f$" % omega_d)
-    #plt.plot(t, DrivenElement(t, params[1], omega_d), label=r"$F_D , \omega_D = %.2f$" % omega_d)
-    #plt.legend()
+    plt.figure(figsize=(9, 6))
+    plt.plot(t, x, label=r"$x , \omega_D = %.2f$" % omega_d)
+    plt.plot(t, DrivenElement(t, params[1], omega_d), label=r"$F_D , \omega_D = %.2f$" % omega_d)
+    plt.legend()
     

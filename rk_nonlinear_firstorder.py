@@ -18,11 +18,11 @@ def Nonlinear1(t, y, params):
 
 # Parameters
    
-params = [1, 1] # Our a and b values
+params = [0.2, 0.2] # Our a and b values
 
 t_0 = 0
-t_max = 20
-dt = 0.2
+t_max = 600
+dt = 0.02
 n = int(t_max/dt)
 
 # Initial values
@@ -38,5 +38,15 @@ res = solve_ivp(lambda t, y : Nonlinear1(t, y, params), t, y_0, method="RK45", t
 y = res.y[0]
 t = res.t
 
-plt.plot(t, y, 'b.')
-plt.show()
+textstr = '\n'.join((
+    r'$a=%.2f$' % (params[0], ),
+    r'$b=%.2f$' % (params[1], )))
+props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+
+plt.plot(t, y, 'b')
+plt.xlabel("t")
+plt.ylabel("y(t)")
+ax = plt.gca()
+ax.text(0.05, 0.25, textstr, transform=ax.transAxes, fontsize=14,
+        verticalalignment='top', bbox=props)
+plt.savefig("rk_nonlinear_firstorder.png", dpi=300)

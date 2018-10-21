@@ -27,10 +27,10 @@ n = int(t_max / dt)
 
 # Initial values
 
-params = [1, 0.1, 1, 0.9] # A, b, omega_0, omega_D
+params = [0.9, 0.1, 1.2, 1.2] # A, b, omega_0, omega_D
 y_0 = [0, 1]
 
-for omega_d in (params[2], 0.75*params[2], 0.25*params[2]):
+for omega_d in (1.05*params[2], params[2], 0.75*params[2], 0.25*params[2]):
     params[3] = omega_d
     func = lambda t, y : DampedDrivenOscillator(t, y, params)
     res = solve_ivp(func, [t_0, t_max], y_0, method="RK45", t_eval=np.linspace(t_0, t_max, n))
